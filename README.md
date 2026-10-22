@@ -1,6 +1,6 @@
 # Sam's Kitchen + Bar website (test version)
 
-Pages: `index.html` (home) and `menu.html` (full menu). Everything is plain HTML, CSS and JavaScript, so it works on GitHub Pages with no build step.
+Pages: `index.html` (home), `menu.html` (full menu) and `about.html` (about us). Everything is plain HTML, CSS and JavaScript, so it works on GitHub Pages with no build step.
 
 ## Put it online on GitHub Pages (about 5 minutes)
 

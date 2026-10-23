@@ -145,11 +145,14 @@ footer .cp{grid-column:1/-1;border-top:1px solid rgba(243,234,222,.25);padding-t
 .pg{background:var(--cherry);color:var(--oat);padding:128px 0 48px}
 .pg h1{font-size:clamp(52px,16vw,150px);margin:10px 0 14px}
 .pg p.l{max-width:460px}
-.chips{position:sticky;top:76px;z-index:30;background:var(--oat);border-bottom:2px solid var(--walnut);padding:12px 0}
-.chips .wrap{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.chips{position:sticky;top:84px;z-index:30;margin:18px 0 6px;pointer-events:none;transition:top .35s ease}
+html.bar-hidden .chips{top:10px}
+.chips .wrap{pointer-events:auto;display:flex;gap:4px;width:max-content;max-width:calc(100% - 24px);padding:5px;background:var(--oat);border:2px solid var(--walnut);border-radius:99px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .chips .wrap::-webkit-scrollbar{display:none}
-.chips a{flex:none;display:inline-flex;align-items:center;min-height:44px;padding:0 20px;border:2px solid var(--walnut);border-radius:99px;text-decoration:none}
-.cat{padding:56px 0 24px;scroll-margin-top:130px}
+.chips a{flex:none;display:inline-flex;align-items:center;min-height:42px;padding:0 10px;letter-spacing:.12em;border:0;border-radius:99px;text-decoration:none;transition:background .2s,color .2s}
+.chips a[aria-current]{background:var(--cherry);color:var(--oat)}
+@media(hover:hover){.chips a:hover:not([aria-current]){background:rgba(61,26,28,.1)}}
+.cat{padding:56px 0 24px;scroll-margin-top:20px}
 .cat.dk{background:var(--walnut);color:var(--oat);padding-bottom:64px;margin-top:32px}
 .cat .script{font-size:28px;color:var(--cherry);margin-bottom:10px}.cat.dk .script{color:var(--oat)}
 .cat h2{font-size:clamp(38px,11vw,72px);margin-bottom:22px}
@@ -257,7 +260,7 @@ footer .cp{grid-column:1/-1;border-top:1px solid rgba(243,234,222,.25);padding-t
   .sig{padding:60px 0 100px}.sig .top{margin-bottom:40px}
   .cards{grid-template-columns:repeat(4,1fr);gap:18px}
   .m{border-radius:28px}.m>img,.m .ic{aspect-ratio:1}
-  .chips{top:90px}
+  .chips{top:80px}.chips a{padding:0 18px;letter-spacing:.18em}
   .pg{padding:150px 0 72px}
 }
 @media(hover:hover){
@@ -272,6 +275,10 @@ footer .cp{grid-column:1/-1;border-top:1px solid rgba(243,234,222,.25);padding-t
 .totop.show{opacity:1;visibility:visible;transform:none}
 .totop:hover{background:var(--walnut)}
 @media(min-width:960px){.totop{right:28px;bottom:28px;width:56px;height:56px}}
+
+/* about page: back to home link */
+.home-link{display:inline-block;margin-top:28px;padding:12px 2px;color:var(--oat);text-decoration:none;border-bottom:2px solid rgba(243,234,222,.55);transition:border-color .2s}
+.home-link:hover{border-bottom-color:var(--oat)}
 
 </style>
 <script>document.documentElement.classList.add('js')</script>
@@ -325,6 +332,7 @@ footer .cp{grid-column:1/-1;border-top:1px solid rgba(243,234,222,.25);padding-t
   <h2 class="feature">More than a restaurant</h2>
   <p>Sam's is a place to relax, connect, and feel at home. Our hope is that every guest leaves happy, satisfied, and looking forward to their next visit.</p>
   <div class="btns"><a class="btn o book-link" href="index.html#book">Reservation</a><a class="btn" href="index.html#visit">Find us</a></div>
+  <a class="home-link sub" href="index.html">← Back to home</a>
 </div></section>
 </main>
 
@@ -389,13 +397,32 @@ window.SAMS = {
     window.addEventListener('scroll',function(){
       var y=window.pageYOffset||0;
       if(nv&&nv.classList.contains('is-open')){lastY=y;return}
-      if(y>140&&y>lastY+6) tb.classList.add('is-hidden');
-      else if(y<lastY-6||y<=140) tb.classList.remove('is-hidden');
+      if(y>140&&y>lastY+6){tb.classList.add('is-hidden');root.classList.add('bar-hidden')}
+      else if(y<lastY-6||y<=140){tb.classList.remove('is-hidden');root.classList.remove('bar-hidden')}
       lastY=y;
     },{passive:true});
-    tb.addEventListener('focusin',function(){tb.classList.remove('is-hidden')});
+    tb.addEventListener('focusin',function(){tb.classList.remove('is-hidden');root.classList.remove('bar-hidden')});
   }
 
+
+
+  /* menu page: highlight the section you are reading */
+  var chips=d.querySelectorAll('.chips a'), cats=d.querySelectorAll('.cat'), lastCat=null;
+  if(chips.length&&cats.length){
+    var spy=function(){
+      var y=(window.pageYOffset||0)+140, cur=null;
+      cats.forEach(function(s){if(s.offsetTop<=y)cur=s.id});
+      if(cur===lastCat)return; lastCat=cur;
+      chips.forEach(function(a){
+        if(a.getAttribute('href')==='#'+cur){
+          a.setAttribute('aria-current','true');
+          var w=a.parentNode, dx=a.getBoundingClientRect().left-w.getBoundingClientRect().left;
+          if(w.scrollWidth>w.clientWidth)w.scrollTo({left:w.scrollLeft+dx-12,behavior:'smooth'});
+        } else a.removeAttribute('aria-current');
+      });
+    };
+    window.addEventListener('scroll',spy,{passive:true});spy();
+  }
 
   /* back to top button */
   var tt=d.querySelector('.totop');

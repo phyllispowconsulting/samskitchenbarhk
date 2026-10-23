@@ -267,6 +267,12 @@ footer .cp{grid-column:1/-1;border-top:1px solid rgba(243,234,222,.25);padding-t
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.js .rv{opacity:1;transform:none}}
 
+/* back to top button */
+.totop{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:45;width:52px;height:52px;border-radius:50%;border:2px solid var(--walnut);background:var(--cherry);color:var(--oat);display:grid;place-items:center;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .25s,transform .25s,visibility .25s,background .2s}
+.totop.show{opacity:1;visibility:visible;transform:none}
+.totop:hover{background:var(--walnut)}
+@media(min-width:960px){.totop{right:28px;bottom:28px;width:56px;height:56px}}
+
 </style>
 <script>document.documentElement.classList.add('js')</script>
 </head>
@@ -276,7 +282,7 @@ footer .cp{grid-column:1/-1;border-top:1px solid rgba(243,234,222,.25);padding-t
 <a class="brand" href="index.html" aria-label="Sam's Kitchen + Bar, home"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iVGVtcGxhdGUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMjc3Ljk0IDE1NC45Ij4KICA8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMzAuOC4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogMi4xLjQgQnVpbGQgMSkgIC0tPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuc3QwIHsKICAgICAgICBmaWxsOiAjZjNlYWRlOwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNDMuNjYsMTA5Ljc3di0xOS43OGgxNS44MmMxLjI0LDAsMi4zNC0uNzQsMi44MS0xLjg5LjQ4LTEuMTcuMjEtMi40NC0uNjktMy4zMmwtMTQuMzEtMTQuMDFjLTIuNjMtMi41OC00LjE0LTYuMTYtNC4xNC05Ljg1LDAtMy42NCwxLjM1LTcuMDMsMy44Mi05LjUzLDMuMTUtMy4yMSw3LjUxLTUuMDUsMTEuOTctNS4wNWgxNC4xNnYxOS43OGgtMTUuODVjLTEuMjYsMC0yLjM0LjcyLTIuODEsMS44OS0uNDgsMS4xNy0uMjEsMi40NC42OSwzLjMybDE0LjM1LDE0LjA1YzIuNjEsMi41NSw0LjExLDYuMTEsNC4xNCw5Ljc2LjAyLDMuNzUtMS40Nyw3LjM1LTQuMDksOS44OC0zLjEzLDMuMDItNy4zOCw0Ljc1LTExLjY3LDQuNzVoLTE0LjE4WiIvPgogIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xMTAuMTYsMTA5Ljc3bC0uNzctNy44N2gtMjAuMjhsLS43Nyw3Ljg3aC01LjA2bDYuMjMtNjMuNDNoMTkuNDhsNi4yMyw2My40M2gtNS4wNlpNOTkuMjUsNjcuMDRjLTMuODMsMC03LDIuODctNy4zNyw2LjY4bC0uODIsOC4zOGgxNi4zOWwtLjgyLTguMzhjLS4zNy0zLjgxLTMuNTQtNi42OS03LjM3LTYuNjlaIi8+CiAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTE3NS43NSwxMDkuNzd2LTMxLjcyYzAtNi40Ny00LjM3LTExLjM0LTEwLjE3LTExLjM0cy0xMC4xNyw0Ljg4LTEwLjE3LDExLjM0djMxLjcyaC01LjEydi0zMS43MmMwLTYuNDctNC4zNy0xMS4zNC0xMC4xNy0xMS4zNHMtMTAuMTcsNC44OC0xMC4xNywxMS4zNHYzMS43MmgtNS4wN3YtNDguNTZjMC05LjAxLDYuNjktMTYuMDgsMTUuMjQtMTYuMDgsNC43MywwLDkuMDcsMi4xNSwxMS45MSw1Ljg5bC44MSwxLjA3LjgxLTEuMDdjMi44NC0zLjc0LDcuMTgtNS44OSwxMS45MS01Ljg5LDguNTQsMCwxNS4yNCw3LjA2LDE1LjI0LDE2LjA4djQ4LjU2aC01LjA3WiIvPgogIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0yMDQuODQsMTA5Ljc3di0xOS43OGgxNS44MmMxLjI0LDAsMi4zNC0uNzQsMi44MS0xLjg5LjQ4LTEuMTcuMjEtMi40NC0uNjktMy4zMmwtMTQuMzEtMTQuMDFjLTIuNjMtMi41OC00LjE0LTYuMTYtNC4xNC05Ljg1LDAtMy42NCwxLjM1LTcuMDMsMy44Mi05LjUzLDMuMTUtMy4yMSw3LjUxLTUuMDUsMTEuOTYtNS4wNWgxNC4xNnYxOS43OGgtMTUuODVjLTEuMjYsMC0yLjM0LjcyLTIuODEsMS44OS0uNDcsMS4xNS0uMiwyLjQ1LjY5LDMuMzJsMTQuMzUsMTQuMDVjMi42MSwyLjU1LDQuMTEsNi4xMSw0LjE0LDkuNzYuMDIsMy43NS0xLjQ3LDcuMzUtNC4wOSw5Ljg4LTMuMTMsMy4wMi03LjM4LDQuNzUtMTEuNjgsNC43NWgtMTQuMThaIi8+CiAgPHBvbHlnb24gY2xhc3M9InN0MCIgcG9pbnRzPSIxODkuNzMgNDYuNDggMTkzLjM2IDQ2LjQ1IDE5Ni45OCA0Ni40OCAxOTYuMDEgNjAuODcgMTkzLjM1IDYwLjY5IDE5MC42OSA2MC44NyAxODkuNzMgNDYuNDgiLz4KPC9zdmc+" alt="Sam's Kitchen + Bar"></a>
 <div class="topbar">
   <a class="pl" href="index.html" aria-label="Sam's Kitchen + Bar, home"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iVGVtcGxhdGUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMjc3Ljk0IDE1NC45Ij4KICA8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMzAuOC4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogMi4xLjQgQnVpbGQgMSkgIC0tPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuc3QwIHsKICAgICAgICBmaWxsOiAjYmEyNzJkOwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNDMuNjYsMTA5Ljc3di0xOS43OGgxNS44MmMxLjI0LDAsMi4zNC0uNzQsMi44MS0xLjg5LjQ4LTEuMTcuMjEtMi40NC0uNjktMy4zMmwtMTQuMzEtMTQuMDFjLTIuNjMtMi41OC00LjE0LTYuMTYtNC4xNC05Ljg1LDAtMy42NCwxLjM1LTcuMDMsMy44Mi05LjUzLDMuMTUtMy4yMSw3LjUxLTUuMDUsMTEuOTctNS4wNWgxNC4xNnYxOS43OGgtMTUuODVjLTEuMjYsMC0yLjM0LjcyLTIuODEsMS44OS0uNDgsMS4xNy0uMjEsMi40NC42OSwzLjMybDE0LjM1LDE0LjA1YzIuNjEsMi41NSw0LjExLDYuMTEsNC4xNCw5Ljc2LjAyLDMuNzUtMS40Nyw3LjM1LTQuMDksOS44OC0zLjEzLDMuMDItNy4zOCw0Ljc1LTExLjY3LDQuNzVoLTE0LjE4WiIvPgogIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xMTAuMTYsMTA5Ljc3bC0uNzctNy44N2gtMjAuMjhsLS43Nyw3Ljg3aC01LjA2bDYuMjMtNjMuNDNoMTkuNDhsNi4yMyw2My40M2gtNS4wNlpNOTkuMjUsNjcuMDRjLTMuODMsMC03LDIuODctNy4zNyw2LjY4bC0uODIsOC4zOGgxNi4zOWwtLjgyLTguMzhjLS4zNy0zLjgxLTMuNTQtNi42OS03LjM3LTYuNjlaIi8+CiAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTE3NS43NSwxMDkuNzd2LTMxLjcyYzAtNi40Ny00LjM3LTExLjM0LTEwLjE3LTExLjM0cy0xMC4xNyw0Ljg4LTEwLjE3LDExLjM0djMxLjcyaC01LjEydi0zMS43MmMwLTYuNDctNC4zNy0xMS4zNC0xMC4xNy0xMS4zNHMtMTAuMTcsNC44OC0xMC4xNywxMS4zNHYzMS43MmgtNS4wN3YtNDguNTZjMC05LjAxLDYuNjktMTYuMDgsMTUuMjQtMTYuMDgsNC43MywwLDkuMDcsMi4xNSwxMS45MSw1Ljg5bC44MSwxLjA3LjgxLTEuMDdjMi44NC0zLjc0LDcuMTgtNS44OSwxMS45MS01Ljg5LDguNTQsMCwxNS4yNCw3LjA2LDE1LjI0LDE2LjA4djQ4LjU2aC01LjA3WiIvPgogIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0yMDQuODQsMTA5Ljc3di0xOS43OGgxNS44MmMxLjI0LDAsMi4zNC0uNzQsMi44MS0xLjg5LjQ4LTEuMTcuMjEtMi40NC0uNjktMy4zMmwtMTQuMzEtMTQuMDFjLTIuNjMtMi41OC00LjE0LTYuMTYtNC4xNC05Ljg1LDAtMy42NCwxLjM1LTcuMDMsMy44Mi05LjUzLDMuMTUtMy4yMSw3LjUxLTUuMDUsMTEuOTYtNS4wNWgxNC4xNnYxOS43OGgtMTUuODVjLTEuMjYsMC0yLjM0LjcyLTIuODEsMS44OS0uNDcsMS4xNS0uMiwyLjQ1LjY5LDMuMzJsMTQuMzUsMTQuMDVjMi42MSwyLjU1LDQuMTEsNi4xMSw0LjE0LDkuNzYuMDIsMy43NS0xLjQ3LDcuMzUtNC4wOSw5Ljg4LTMuMTMsMy4wMi03LjM4LDQuNzUtMTEuNjgsNC43NWgtMTQuMThaIi8+CiAgPHBvbHlnb24gY2xhc3M9InN0MCIgcG9pbnRzPSIxODkuNzMgNDYuNDggMTkzLjM2IDQ2LjQ1IDE5Ni45OCA0Ni40OCAxOTYuMDEgNjAuODcgMTkzLjM1IDYwLjY5IDE5MC42OSA2MC44NyAxODkuNzMgNDYuNDgiLz4KPC9zdmc+" alt="Sam's Kitchen + Bar"></a>
-  <nav class="sub" id="nv" aria-label="Main"><a href="about.html" aria-current="page">About Sam</a><a href="menu.html">Menu</a><a href="index.html#visit">Contact Us</a></nav>
+  <nav class="sub" id="nv" aria-label="Main"><a href="index.html">Home</a><a href="about.html" aria-current="page">About Sam</a><a href="menu.html">Menu</a><a href="index.html#visit">Contact Us</a></nav>
   <a class="btn sub book-link" href="index.html#book"><span class="long">Reservation</span><span class="short">Reservation</span></a>
   <button class="burger" id="bg" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nv"><i></i></button>
 </div>
@@ -332,6 +338,7 @@ footer .cp{grid-column:1/-1;border-top:1px solid rgba(243,234,222,.25);padding-t
   </div>
 </footer>
 
+<button class="totop" type="button" aria-label="Back to top"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 <script>
 /* ------------------------------------------------------------------
    Sam's Kitchen + Bar: links to fill in
@@ -387,6 +394,17 @@ window.SAMS = {
       lastY=y;
     },{passive:true});
     tb.addEventListener('focusin',function(){tb.classList.remove('is-hidden')});
+  }
+
+
+  /* back to top button */
+  var tt=d.querySelector('.totop');
+  if(tt){
+    window.addEventListener('scroll',function(){tt.classList.toggle('show',(window.pageYOffset||0)>700)},{passive:true});
+    tt.addEventListener('click',function(){
+      var calm=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({top:0,behavior:calm?'auto':'smooth'});
+    });
   }
 
   /* gentle reveal on scroll */

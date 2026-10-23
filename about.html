@@ -236,13 +236,12 @@ footer .cp{grid-column:1/-1;border-top:1px solid rgba(243,234,222,.25);padding-t
   .sig .top{grid-template-columns:1fr auto;align-items:flex-end}
 }
 @media(min-width:960px){
-  .topbar{left:50%;right:auto;transform:translateX(-50%);width:min(680px,calc(100% - 360px));top:calc(12px + env(safe-area-inset-top,0px));padding:5px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+  .topbar{left:50%;right:auto;transform:translateX(-50%);width:max-content;max-width:calc(100% - 360px);top:calc(12px + env(safe-area-inset-top,0px));padding:5px 5px 5px 28px;display:flex;align-items:center;gap:26px}
   .topbar .pl,.burger{display:none}
-  .topbar nav{display:flex;gap:28px;grid-column:2;justify-content:center;margin:0}
-  .topbar .btn{grid-column:3;justify-self:end}
+  .topbar nav{display:flex;gap:24px;margin:0}
   .topbar nav a{padding:8px 0;font-size:11px;border:0;border-bottom:2px solid transparent}
   .topbar nav a:hover,.topbar nav a[aria-current]{border-bottom-color:var(--cherry)}
-  .topbar .btn{min-height:40px;padding:0 20px;white-space:nowrap}.topbar .long{display:inline}.topbar .short{display:none}
+  .topbar .btn{min-height:38px;padding:0 18px;white-space:nowrap}.topbar .long{display:inline}.topbar .short{display:none}
   .topbar.is-hidden{transform:translate(-50%,-170%)}
   .brand{display:block;position:absolute;z-index:60;top:calc(10px + env(safe-area-inset-top,0px));left:28px;line-height:0}
   .brand img{height:84px;width:auto}
